@@ -11,7 +11,7 @@ library(pathview)
 
 ## Load hg19 gene and add read counts
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
-exByGn <- exonsBy(TxDb.Hsapiens.UCSC.hg19.knownGene, "gene")
+exonByGene <- exonsBy(TxDb.Hsapiens.UCSC.hg19.knownGene, "gene")
 
 ## Load up Gene Alignments
 tophat_fls <- list.files("tophat_all/", pattern="bam$", full.names =T)
@@ -20,7 +20,7 @@ flag <- scanBamFlag(isSecondaryAlignment=FALSE, isProperPair=TRUE)
 param <- ScanBamParam(flag=flag)
 
 ## Give a summary of Overlaps 
-gnCnt <- summarizeOverlaps(exByGn, bamfls, mode="Union",ignore.strand=TRUE, singleEnd=FALSE, param=param)
+gnCnt <- summarizeOverlaps(exonByGene, bamfls, mode="Union",ignore.strand=TRUE, singleEnd=FALSE, param=param)
 hnrnp.cnts=assay(gnCnt)
 
 ## Start Preprocessing 
